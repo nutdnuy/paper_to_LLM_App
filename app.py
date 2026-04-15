@@ -12,6 +12,8 @@ Theme: QuantSeras (Material Dark + desaturated green).
 
 from __future__ import annotations
 
+import os
+
 import numpy as np
 import plotly.graph_objects as go
 import streamlit as st
@@ -25,10 +27,18 @@ from mt_pipeline import compute_mt_score, extract_metrics, interpret_mt
 # =============================================================================
 
 def load_secret_key() -> str:
+    """Resolve OPENAI_API_KEY in priority order:
+    1. Streamlit secrets  (st.secrets — local .streamlit/secrets.toml OR Streamlit Cloud Secrets UI)
+    2. Environment variable  (OPENAI_API_KEY — useful for Docker / self-hosted deploys)
+    3. Empty string → app falls back to sidebar text input.
+    """
     try:
-        return st.secrets.get("OPENAI_API_KEY", "")
+        val = st.secrets.get("OPENAI_API_KEY", "")
+        if val:
+            return val
     except (FileNotFoundError, Exception):
-        return ""
+        pass
+    return os.getenv("OPENAI_API_KEY", "")
 
 
 # =============================================================================

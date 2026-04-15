@@ -59,14 +59,16 @@ Open <http://localhost:8501> → paste your OpenAI API key in the sidebar → cl
 
 The app requires an OpenAI API key for metric extraction (LLM) and embeddings.
 
-- **Default behavior**: app shows a password input in the sidebar — key lives only in your browser session, never logged or persisted.
-- **Optional local convenience**: create `.streamlit/secrets.toml` (gitignored):
-  ```toml
-  OPENAI_API_KEY = "sk-proj-..."
-  ```
-  The app will auto-load it and skip the input field.
+Key is resolved in this order:
 
-**On Streamlit Community Cloud**: leave secrets empty — visitors bring their own key.
+1. **Streamlit secrets** — `.streamlit/secrets.toml` locally **or** Streamlit Cloud's *Settings → Secrets* UI:
+   ```toml
+   OPENAI_API_KEY = "sk-proj-..."
+   ```
+2. **Environment variable** — `OPENAI_API_KEY` (useful for Docker / self-hosted deploys).
+3. **Sidebar input** — fallback password field, key lives only in the browser session, never logged or persisted.
+
+**On Streamlit Community Cloud**: typically leave secrets empty so visitors bring their own key. Pre-filling *your* key in a public app means every visitor's usage bills to you — set a usage limit at [platform.openai.com](https://platform.openai.com/settings/organization/limits) if you do.
 
 ---
 
