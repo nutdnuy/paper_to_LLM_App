@@ -68,3 +68,14 @@ App uses **QuantSeras Design System** (Material Dark + desaturated green `#69F0A
 - **Python 3.9 is installed system-wide but will NOT work** — `langchain>=1.0.0` requires 3.10+. Always use the anaconda `python3.13` or equivalent.
 - `.streamlit/secrets.toml` is gitignored; `.streamlit/secrets.toml.example` is the template. App falls back to sidebar text input if secrets file missing.
 - `paper/` contains source PDFs — do not commit the PDFs if repo goes public (license unclear for some). `.gitignore` currently keeps them; flip the commented line to exclude.
+
+## Commit conventions
+
+**No AI co-author attribution.** This project's git history must look human-authored:
+
+- **Never** add `Co-Authored-By: Claude <noreply@anthropic.com>` (or any other AI) trailer to commits.
+- **Never** add `🤖 Generated with [Claude Code](https://claude.com/claude-code)` or similar marketing footers.
+- Use the user's configured `git config user.name` / `user.email` as the author.
+- Commit messages stay clean and conventional (e.g. `feat: …`, `fix: …`, `chore: …`) — describing the change, not the tool that wrote it.
+
+This overrides Claude Code's default commit footer behavior. It applies to **all** commits in this repo, whether made interactively or via the `paper-to-streamlit-app` skill / `/paper-to-app` slash command.
