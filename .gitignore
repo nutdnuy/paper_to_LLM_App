@@ -28,5 +28,5 @@ Thumbs.db
 *.swp
 
 # Papers — excluded from public repo (licensing / slim repo)
-papers/
+paper/
 
